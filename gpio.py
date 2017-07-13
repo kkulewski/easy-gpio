@@ -8,6 +8,12 @@ def gpioDirectionRead(number):
 	direction = os.popen(cmd).read()
 	return "gpio{} direction == {}".format(number, direction)
 
+@app.route("/gpio<number>/direction/<direction>")
+def gpioDirectionSet(number, direction):
+	cmd = 'echo {} > /sys/class/gpio/gpio{}/direction'.format(direction, number)
+	os.system(cmd)
+	return "gpio{} direction set {}".format(number, direction)
+
 @app.route("/gpio<number>/value")
 def gpioValueRead(number):
 	cmd = 'cat /sys/class/gpio/gpio{}/value'.format(number)
