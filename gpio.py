@@ -8,6 +8,12 @@ def gpioExport(number):
 	os.system(cmd)
 	return "gpio{} exported".format(number)
 
+@app.route("/gpio<number>/unexport")
+def gpioUnexport(number):
+	cmd = 'echo {} > /sys/class/gpio/unexport'.format(number)
+	os.system(cmd)
+	return "gpio{} unexported".format(number)
+
 @app.route("/gpio<number>/direction")
 def gpioDirectionRead(number):
 	cmd = 'cat /sys/class/gpio/gpio{}/direction'.format(number)
