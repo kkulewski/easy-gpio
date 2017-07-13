@@ -2,6 +2,12 @@ from flask import Flask
 app = Flask(__name__)
 import os
 
+@app.route("/gpio<number>/direction")
+def gpioDirectionRead(number):
+	cmd = 'cat /sys/class/gpio/gpio{}/direction'.format(number)
+	direction = os.popen(cmd).read()
+	return "gpio{} direction == {}".format(number, direction)
+
 @app.route("/gpio<number>/value")
 def gpioValueRead(number):
 	cmd = 'cat /sys/class/gpio/gpio{}/value'.format(number)
