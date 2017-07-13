@@ -2,6 +2,7 @@ from flask import Flask
 app = Flask(__name__)
 import os
 
+
 @app.route("/gpio<number>/export")
 def gpioExport(number):
 	cmd = 'echo {} > /sys/class/gpio/export'.format(number)
@@ -13,6 +14,7 @@ def gpioUnexport(number):
 	cmd = 'echo {} > /sys/class/gpio/unexport'.format(number)
 	os.system(cmd)
 	return "gpio{} unexported".format(number)
+
 
 @app.route("/gpio<number>/direction")
 def gpioDirectionRead(number):
@@ -26,6 +28,7 @@ def gpioDirectionSet(number, direction):
 	os.system(cmd)
 	return "gpio{} direction set {}".format(number, direction)
 
+
 @app.route("/gpio<number>/value")
 def gpioValueRead(number):
 	cmd = 'cat /sys/class/gpio/gpio{}/value'.format(number)
@@ -37,6 +40,7 @@ def gpioValueSet(number, state):
 	cmd = 'echo {} > /sys/class/gpio/gpio{}/value'.format(state, number)
 	os.system(cmd)
 	return "gpio{} value set {}".format(number, state)
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80)
