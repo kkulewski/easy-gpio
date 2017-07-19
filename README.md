@@ -8,6 +8,9 @@ Add execute privilege
 Run as superuser
 - `sudo python gpio.py`
 
+You can also redirect stderr to a file and run server in the background
+- `sudo python gpio.py 2> gpio.log &`
+
 ## Usage
 Export GPIO to userspace
 - `device-ip/gpioX/export`
